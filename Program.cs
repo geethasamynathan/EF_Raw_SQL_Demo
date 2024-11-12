@@ -1,6 +1,12 @@
+using EF_Raw_SQL_Demo;
 using EF_Raw_SQL_Demo.Models;
+using log4net;
+using log4net.Config;
+
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddLog4net();
 
 // Add services to the container.
 builder.Services.AddDbContext<BikestoresContext>();

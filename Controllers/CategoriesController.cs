@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EF_Raw_SQL_Demo.Models;
+using log4net;
 
 namespace EF_Raw_SQL_Demo.Controllers
 {
@@ -13,18 +14,25 @@ namespace EF_Raw_SQL_Demo.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(CategoriesController));
+
+
         private readonly BikestoresContext _context;
 
-        public CategoriesController(BikestoresContext context)
+        public CategoriesController(BikestoresContext context,ILog logger)
         {
             _context = context;
+           // _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         // GET: api/Categories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-          if (_context.Categories == null)
+            _logger.Info("This is an informational log.");
+            _logger.Error("This is an error log.");
+            _logger.Info("CategoriesController Get method called");
+            if (_context.Categories == null)
           {
               return NotFound();
           }
